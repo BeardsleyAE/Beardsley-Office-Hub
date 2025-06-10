@@ -117,7 +117,7 @@ export default function HomePage() {
               <Button
                 size="default"
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-beardsley-red shadow-lg px-6 py-3 font-whitney slide-in-bottom"
+                className="bg-white text-beardsley-red hover:bg-gray-100 shadow-lg px-6 py-3 font-whitney slide-in-bottom"
                 asChild
               >
                 <Link href="/directory">
@@ -426,9 +426,9 @@ export default function HomePage() {
                 <EmployeeSearchDialog allLocations={locations} />
               </div>
               <Button
-                size="lg"
-                variant="outline"
-                className="border-white text-white hover:bg-white hover:text-beardsley-red text-lg px-8 py-6 h-auto font-whitney"
+                size="default"
+                variant="secondary"
+                className="bg-white text-beardsley-red hover:bg-gray-100 shadow-lg px-6 py-3 font-whitney slide-in-bottom"
                 asChild
               >
                 <Link href="#locations">
