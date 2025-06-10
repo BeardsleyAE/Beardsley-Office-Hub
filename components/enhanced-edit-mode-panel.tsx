@@ -29,6 +29,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { PhotoUpload } from "@/components/photo-upload"
 import { ParkingMapUpload } from "@/components/parking-map-upload"
 import { getPhotoUrl, openPrinterDriverLocation, getVantagePointUrl } from "@/lib/employee-data"
+import { clearAllEmployees } from "@/lib/github-sync"
 
 interface EnhancedEditModePanelProps {
   location: any
@@ -294,6 +295,19 @@ export function EnhancedEditModePanel({
       height: 40,
       rotation: 0,
     })
+  }
+
+  const handleClearAllEmployees = () => {
+    if (confirm("Are you sure you want to remove ALL employees from ALL locations? This action cannot be undone.")) {
+      const success = clearAllEmployees()
+      if (success) {
+        alert("All employees have been cleared. You can now upload new employee data.")
+        // Refresh the page to show the changes
+        window.location.reload()
+      } else {
+        alert("Failed to clear employees. Please try again.")
+      }
+    }
   }
 
   // Get available floors for the selected target office
@@ -1031,6 +1045,18 @@ export function EnhancedEditModePanel({
             </div>
           </TabsContent>
         </Tabs>
+
+        {/* Clear All Employees Button */}
+        <div className="mt-4">
+          <Button
+            variant="outline"
+            className="w-full border-red-500 text-red-700 hover:bg-red-50"
+            onClick={handleClearAllEmployees}
+          >
+            <Trash2 className="mr-1 h-3 w-3" />
+            Clear All Employees
+          </Button>
+        </div>
       </CardContent>
     </Card>
   )
