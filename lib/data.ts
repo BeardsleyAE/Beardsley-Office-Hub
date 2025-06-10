@@ -1,4 +1,4 @@
-// Auto-generated office seating data - Last updated: 2025-06-10T15:45:10.290Z
+// Auto-generated office seating data - Last updated: 2025-06-10T15:47:57.684Z
 // This file is automatically updated when admins make changes through the Office Hub
 
 // Storage key for localStorage
@@ -650,35 +650,15 @@ const defaultLocations = {
             "y": 220,
             "rotation": 0,
             "furnitureId": "desk-f1-1",
-            "employee": {
-              "id": "emp-auburn-f1-1",
-              "name": "Joanne Butler",
-              "title": "Landscape Senior Designer",
-              "email": "jbutler@beardsley.com",
-              "phone": "315-253-7301 2271",
-              "employeeNumber": "00012",
-              "profileUrl": "#",
-              "avatar": "/placeholder.svg?height=40&width=40",
-              "notes": "Works at the Auburn office, First Floor."
-            }
+            "employee": null
           },
           {
             "id": "auburn-f1-seat-2",
-            "x": 190,
-            "y": 220,
+            "x": 190.8302001953125,
+            "y": 217.48550415039062,
             "rotation": 0,
             "furnitureId": "desk-f1-2",
-            "employee": {
-              "id": "emp-auburn-f1-2",
-              "name": "Kathy Quigley",
-              "title": "Computer System Administrator",
-              "email": "kquigley@beardsley.com",
-              "phone": "315-253-7301 2242",
-              "employeeNumber": "00018",
-              "profileUrl": "#",
-              "avatar": "/placeholder.svg?height=40&width=40",
-              "notes": "Works at the Auburn office, First Floor."
-            }
+            "employee": null
           },
           {
             "id": "auburn-f1-seat-3",
@@ -686,17 +666,7 @@ const defaultLocations = {
             "y": 220,
             "rotation": 0,
             "furnitureId": "desk-f1-3",
-            "employee": {
-              "id": "emp-auburn-f1-3",
-              "name": "Glenn Hewitt",
-              "title": "Fire Protection Senior Designer",
-              "email": "ghewitt@beardsley.com",
-              "phone": "315-253-7301 2254",
-              "employeeNumber": "00019",
-              "profileUrl": "#",
-              "avatar": "/placeholder.svg?height=40&width=40",
-              "notes": "Works at the Auburn office, First Floor."
-            }
+            "employee": null
           },
           {
             "id": "auburn-f1-seat-4",
@@ -704,75 +674,34 @@ const defaultLocations = {
             "y": 220,
             "rotation": 0,
             "furnitureId": "desk-f1-4",
-            "employee": {
-              "id": "emp-auburn-f1-4",
-              "name": "Dan Whitman",
-              "title": "Plumbing Senior Designer",
-              "email": "dwhitman@beardsley.com",
-              "phone": "315-253-7301 2227",
-              "employeeNumber": "00019",
-              "profileUrl": "#",
-              "avatar": "/placeholder.svg?height=40&width=40",
-              "notes": "Works at the Auburn office, First Floor."
-            }
+            "employee": null
           },
           {
             "id": "auburn-f1-seat-5",
-            "x": 110,
-            "y": 300,
+            "x": 110.1903076171875,
+            "y": 298.4694519042969,
             "rotation": 0,
             "furnitureId": "desk-f1-5",
-            "employee": {
-              "id": "emp-auburn-f1-5",
-              "name": "Mike Picciano",
-              "title": "Electrical Engineer V",
-              "email": "mpicciano@beardsley.com",
-              "phone": "315-253-7301 2258",
-              "employeeNumber": "00021",
-              "profileUrl": "#",
-              "avatar": "/placeholder.svg?height=40&width=40",
-              "notes": "Works at the Auburn office, First Floor."
-            }
+            "employee": null
           },
           {
             "id": "seat-1749496564425",
             "x": 189.43325805664062,
             "y": 301.48193359375,
             "rotation": 0,
-            "employee": {
-              "id": "emp-auburn-16",
-              "name": "Tom Wight",
-              "title": "Mechanical Engineer",
-              "email": "twight@beardsley.com",
-              "phone": "315-253-7301 2269",
-              "employeeNumber": "00186",
-              "profileUrl": "#",
-              "avatar": "/placeholder.svg?height=40&width=40",
-              "notes": "Works at the Auburn office, Second Floor."
-            }
+            "employee": null
           },
           {
             "id": "seat-1749497309584",
-            "x": 673.5943908691406,
-            "y": 381.118408203125,
+            "x": 356.32550048828125,
+            "y": 301.9105224609375,
             "rotation": 0,
-            "employee": {
-              "name": "That Guy",
-              "title": "Architect",
-              "email": "savamien2@gmail.com",
-              "phone": "315-725-2868",
-              "notes": "",
-              "employeeNumber": "00400",
-              "photo": null,
-              "id": "emp-1749497385874",
-              "profileUrl": "#",
-              "avatar": "/photos/That-Guy_Resume.jpg"
-            }
+            "employee": null
           },
           {
             "id": "seat-1749501622988",
-            "x": 333.30645751953125,
-            "y": 530.7478637695312,
+            "x": 272.70599365234375,
+            "y": 302.6522521972656,
             "rotation": 0,
             "employee": null
           }
