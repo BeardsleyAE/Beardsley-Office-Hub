@@ -1364,6 +1364,7 @@ if (typeof window !== "undefined") {
 }
 
 export function clearAllEmployees(): boolean {
+  // Clear from localStorage
   currentData = loadFromStorage()
   
   try {
@@ -1382,10 +1383,51 @@ export function clearAllEmployees(): boolean {
     }
     
     saveToStorage(currentData)
+    
+    // Also clear from defaultLocations to ensure fresh start
+    for (const locationId in defaultLocations) {
+      const location = (defaultLocations as any)[locationId]
+      if (location.floors) {
+        location.floors.forEach((floor: any) => {
+          if (floor.seats) {
+            floor.seats.forEach((seat: any) => {
+              seat.employee = null
+            })
+          }
+        })
+      }
+    }
+    
     console.log("✅ All employees cleared from all locations")
     return true
   } catch (error) {
     console.error("❌ Error clearing employees:", error)
     return false
+  }
+}
+
+// Force clear all employees on module load to ensure clean state
+export function forceResetAllEmployees(): void {
+  if (typeof window !== "undefined") {
+    // Clear localStorage completely
+    localStorage.removeItem(STORAGE_KEY)
+    
+    // Clear default data
+    for (const locationId in defaultLocations) {
+      const location = (defaultLocations as any)[locationId]
+      if (location.floors) {
+        location.floors.forEach((floor: any) => {
+          if (floor.seats) {
+            floor.seats.forEach((seat: any) => {
+              seat.employee = null
+            })
+          }
+        })
+      }
+    }
+    
+    currentData = defaultLocations
+    saveToStorage(currentData)
+    console.log("🔄 Force reset: All employees cleared and data reset")
   }
 }
