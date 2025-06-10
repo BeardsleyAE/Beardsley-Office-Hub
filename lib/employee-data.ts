@@ -47,6 +47,14 @@ export function getVantagePointUrl(employeeName: string): string {
   return "#" // Fallback if no employee number found
 }
 
+// Function to add employee to mapping when they're created
+export function addEmployeeToMapping(employeeName: string, employeeNumber: string): void {
+  if (employeeName && employeeNumber) {
+    employeeNumberMap[employeeName] = employeeNumber
+    console.log(`✅ Added employee mapping: ${employeeName} -> ${employeeNumber}`)
+  }
+}
+
 export function getPrinterDriverUrl(printerName: string): string {
   return printerDriverLinks[printerName] || "#"
 }
