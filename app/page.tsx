@@ -288,7 +288,7 @@ export default function HomePage() {
                               <ul className="space-y-2 text-sm">
                                 <li className="flex items-center">
                                   <div className="w-4 h-4 bg-beardsley-red rounded-full mr-2"></div>
-                                  <span>Reserved for executives</span>
+                                  <span>Reserved</span>
                                 </li>
                                 <li className="flex items-center">
                                   <div className="w-4 h-4 bg-beardsley-green rounded-full mr-2"></div>
