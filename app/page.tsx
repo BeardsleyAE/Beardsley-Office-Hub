@@ -522,9 +522,9 @@ export default function HomePage() {
             </div>
 
             <div className="mt-12 border-t border-slate-200 pt-8 text-center text-slate-500">
-              <p className="font-whitney">
-                &copy; 2024 Beardsley. All rights reserved. | Office Hub v2.0 | Powered by Next.js
-              </p>
+                <p className="font-whitney">
+                &copy; {new Date().getFullYear()} Beardsley. All rights reserved. | Office Hub v2.0 | Powered by Next.js
+                </p>
             </div>
           </div>
         </div>
