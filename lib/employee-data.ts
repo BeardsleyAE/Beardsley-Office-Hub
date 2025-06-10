@@ -10,61 +10,8 @@ export interface EmployeeData {
   statusDescription: string
 }
 
-// Corrected employee number mapping based on the accurate CSV data (filtered for active employees only)
-export const employeeNumberMap: Record<string, string> = {
-  "Alex Clement": "00337",
-  "Allie Henderson": "00320",
-  "Andrea DeLany": "00046",
-  "Barry Halperin": "00143",
-  "Bernie Brown": "00263",
-  "Brandon Blumer": "00091",
-  "Brittany Varengo": "00014",
-  "Caleb Sayers": "00015",
-  "Chelsea Bush": "00344",
-  "Dan Whitman": "00020",
-  "Dennis McCarthy": "00040",
-  "Doug Porter": "00256",
-  "Drew Ingram": "00026",
-  "Ed Onori": "00080",
-  "Felicia Fiacco": "00326",
-  "Gabriel Amaya": "00369",
-  "Glenn Hewitt": "00022",
-  "Jacob Perez Gangi": "00333",
-  "Jared Bracken": "00323",
-  "Jared Heinl": "00090",
-  "Jason Coe": "00304",
-  "Jeff Velte": "00071",
-  "Joanne Butler": "00012",
-  "Joanne Maddox Kinslow": "00287",
-  "Joe Kime": "00176",
-  "John Hewitt": "00315",
-  "John MacArthur": "00189",
-  "Joshua Marris": "00364",
-  "Julia Furlong": "00259",
-  "Justin Chiera": "00366",
-  "Kathy Mietz": "00135",
-  "Kathy Quigley": "26",
-  "Kurt Olsen": "00297",
-  "Kyle Daddario": "00338",
-  "Mark Rebich": "00039",
-  "Mathew Milne": "00357",
-  "Megan Litzenberger": "00365",
-  "Michael Reynolds": "00142",
-  "Michelle Thompson": "00346",
-  "Mike Naber": "00043",
-  "Mike Picciano": "00021",
-  "Nathan Stultz": "00339",
-  "Nicholas Hartung": "00342",
-  "Paul Shrimpton": "00079",
-  "Phil Beyel": "00036",
-  "Ria Kelsick": "00335",
-  "Scott Folts": "00331",
-  "Seth Livermore": "00229",
-  "Thomas Ascienzo": "00154",
-  "Tim McSweeney": "00291",
-  "Tom Wight": "00032",
-  "Tracey Carr": "00330",
-}
+// Employee number mapping - cleared for custom upload
+export const employeeNumberMap: Record<string, string> = {}
 
 // Printer driver links mapping
 export const printerDriverLinks: Record<string, string> = {
@@ -213,6 +160,53 @@ export function uploadEmployeeByNumber(employeeNumber: string, csvData: string):
     console.error("Error parsing CSV data:", error)
     return false
   }
+}
+
+// Employee data array - cleared for custom upload
+export const employeeData: EmployeeData[] = []
+
+// Function to add employee data from CSV upload
+export function addEmployeeDataFromCSV(csvData: string): boolean {
+  try {
+    const lines = csvData.split('\n')
+    if (lines.length < 2) return false
+    
+    const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''))
+    
+    for (let i = 1; i < lines.length; i++) {
+      const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''))
+      if (values.length < headers.length) continue
+      
+      const employee: EmployeeData = {
+        employeeNumber: values[0] || '',
+        fullName: values[1] || '',
+        locationDescription: values[2] || '',
+        title: values[3] || '',
+        email: values[4] || '',
+        workPhone: values[5] || '',
+        profitCenterName: values[6] || '',
+        statusDescription: values[7] || 'Active'
+      }
+      
+      if (employee.fullName && employee.employeeNumber) {
+        employeeData.push(employee)
+        employeeNumberMap[employee.fullName] = employee.employeeNumber
+      }
+    }
+    
+    console.log(`✅ Successfully added ${employeeData.length} employees`)
+    return true
+  } catch (error) {
+    console.error('❌ Error parsing CSV data:', error)
+    return false
+  }
+}
+
+// Function to clear all employee data
+export function clearEmployeeData(): void {
+  employeeData.length = 0
+  Object.keys(employeeNumberMap).forEach(key => delete employeeNumberMap[key])
+  console.log('✅ All employee data cleared')
 }
 
 // Get total employee count
