@@ -337,7 +337,7 @@ export default function HomePage() {
             <div className="mb-16 text-center">
               <h2 className="text-4xl font-bold text-slate-800 md:text-5xl font-interface">Platform Features</h2>
               <p className="mt-6 text-xl text-muted-foreground max-w-3xl mx-auto font-whitney">
-                Everything you need to manage your office spaces efficiently with cutting-edge technology
+                Everything you need to manage your office spaces efficiently
               </p>
             </div>
 
@@ -348,8 +348,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="mb-4 text-2xl font-semibold text-slate-800 font-interface">Smart Employee Search</h3>
                 <p className="text-muted-foreground text-lg leading-relaxed font-whitney">
-                  Instantly find any employee across all office locations with our AI-powered search functionality and
-                  real-time results.
+                  Find employees across all office locations with instant search results.
                 </p>
               </div>
 
@@ -359,8 +358,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="mb-4 text-2xl font-semibold text-slate-800 font-interface">Interactive Floor Plans</h3>
                 <p className="text-muted-foreground text-lg leading-relaxed font-whitney">
-                  Navigate detailed floor plans with real-time seating arrangements, furniture layouts, and office
-                  amenities.
+                  Navigate detailed floor plans with seating arrangements and office layouts.
                 </p>
               </div>
 
@@ -370,8 +368,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="mb-4 text-2xl font-semibold text-slate-800 font-interface">Admin Management</h3>
                 <p className="text-muted-foreground text-lg leading-relaxed font-whitney">
-                  Secure admin panel for managing employees, office layouts, and equipment with intuitive drag-and-drop
-                  editing.
+                  Manage employees and office layouts with intuitive editing tools.
                 </p>
               </div>
 
@@ -381,8 +378,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="mb-4 text-2xl font-semibold text-slate-800 font-interface">Equipment Tracking</h3>
                 <p className="text-muted-foreground text-lg leading-relaxed font-whitney">
-                  Monitor and manage office equipment including printers, with direct access to driver downloads and
-                  status monitoring.
+                  Monitor office equipment including printers with driver access.
                 </p>
               </div>
 
@@ -392,8 +388,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="mb-4 text-2xl font-semibold text-slate-800 font-interface">Employee Profiles</h3>
                 <p className="text-muted-foreground text-lg leading-relaxed font-whitney">
-                  Comprehensive employee profiles with photos, contact information, and seamless VantagePoint
-                  integration.
+                  Comprehensive employee profiles with photos and contact information.
                 </p>
               </div>
 
@@ -403,8 +398,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="mb-4 text-2xl font-semibold text-slate-800 font-interface">Office Creation</h3>
                 <p className="text-muted-foreground text-lg leading-relaxed font-whitney">
-                  Easily create new office locations with customizable layouts, furniture placement, and employee
-                  management tools.
+                  Create new office locations with customizable layouts and furniture placement.
                 </p>
               </div>
             </div>
