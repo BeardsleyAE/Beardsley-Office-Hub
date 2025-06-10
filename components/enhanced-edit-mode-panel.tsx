@@ -27,6 +27,7 @@ import { Separator } from "@/components/ui/separator"
 import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { PhotoUpload } from "@/components/photo-upload"
+import { ParkingMapUpload } from "@/components/parking-map-upload"
 import { getPhotoUrl, openPrinterDriverLocation, getVantagePointUrl } from "@/lib/employee-data"
 
 interface EnhancedEditModePanelProps {
@@ -424,8 +425,7 @@ export function EnhancedEditModePanel({
                   {/* Photo Upload */}
                   {newEmployee.name && (
                     <PhotoUpload
-                      firstName={getNameParts(newEmployee.name).firstName}
-                      lastName={getNameParts(newEmployee.name).lastName}
+                      employeeName={newEmployee.name}
                       onPhotoChange={(photoUrl) => setNewEmployee({ ...newEmployee, photo: photoUrl })}
                       currentPhoto={newEmployee.photo}
                     />
@@ -572,8 +572,7 @@ export function EnhancedEditModePanel({
                     {/* Photo Upload for editing */}
                     {editingEmployee.name && (
                       <PhotoUpload
-                        firstName={getNameParts(editingEmployee.name).firstName}
-                        lastName={getNameParts(editingEmployee.name).lastName}
+                        employeeName={editingEmployee.name}
                         onPhotoChange={(photoUrl) => setEditingEmployee({ ...editingEmployee, avatar: photoUrl })}
                         currentPhoto={editingEmployee.avatar}
                       />
@@ -894,6 +893,38 @@ export function EnhancedEditModePanel({
                       }
                     }}
                   />
+                </div>
+                <div>
+                  <Label htmlFor="office-parking-map">Parking Map Image</Label>
+                  <Input
+                    id="office-parking-map"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0]
+                      if (file) {
+                        // Create a URL for the uploaded file to display immediately
+                        const fileUrl = URL.createObjectURL(file)
+                        setEditingLocation({ ...editingLocation, parkingMap: fileUrl })
+                      }
+                    }}
+                  />
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Upload a custom parking map image for this office location.
+                  </p>
+                  {editingLocation?.parkingMap && (
+                    <div className="mt-2">
+                      <p className="text-xs text-muted-foreground mb-1">Current parking map:</p>
+                      <img
+                        src={editingLocation.parkingMap}
+                        alt="Parking map preview"
+                        className="w-32 h-20 object-cover rounded border"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = "/placeholder.svg?height=80&width=128"
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
                 <div>
                   <Label htmlFor="office-address">Address</Label>
