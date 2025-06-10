@@ -29,7 +29,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { PhotoUpload } from "@/components/photo-upload"
 import { ParkingMapUpload } from "@/components/parking-map-upload"
 import { getPhotoUrl, openPrinterDriverLocation, getVantagePointUrl } from "@/lib/employee-data"
-import { clearAllEmployees } from "@/lib/github-sync"
+import { clearAllEmployees, forceResetAllEmployees } from "@/lib/data"
 
 interface EnhancedEditModePanelProps {
   location: any
@@ -123,12 +123,17 @@ export function EnhancedEditModePanel({
   const handleAddNewEmployee = () => {
     if (newEmployee.name && newEmployee.email) {
       const photoUrl = newEmployee.photo || getPhotoUrl(newEmployee.name)
+      
+      // Generate VantagePoint URL based on employee number or name
+      const profileUrl = newEmployee.employeeNumber 
+        ? getVantagePointUrl(newEmployee.name) 
+        : "#"
 
       onAddEmployee(
         {
           ...newEmployee,
           id: `emp-${Date.now()}`,
-          profileUrl: "#",
+          profileUrl: profileUrl,
           avatar: photoUrl,
         },
         currentFloorId,
@@ -207,7 +212,7 @@ export function EnhancedEditModePanel({
               `${(employeeData.name || "employee").toLowerCase().replace(/\s+/g, ".")}@beardsley.com`,
             phone: employeeData.phone || employeeData["phone number"] || employeeData.telephone || "",
             employeeNumber: targetNumber,
-            profileUrl: "#",
+            profileUrl: getVantagePointUrl(employeeData.name || "Unknown Employee"), // Generate proper VantagePoint URL
             avatar: getPhotoUrl(employeeData.name || "Unknown Employee"),
             notes:
               employeeData.notes ||
@@ -299,12 +304,14 @@ export function EnhancedEditModePanel({
 
   const handleClearAllEmployees = () => {
     if (confirm("Are you sure you want to remove ALL employees from ALL locations? This action cannot be undone.")) {
-      const success = clearAllEmployees()
-      if (success) {
-        alert("All employees have been cleared. You can now upload new employee data.")
-        // Refresh the page to show the changes
+      try {
+        // Use force reset to completely clear everything
+        forceResetAllEmployees()
+        alert("All employees have been cleared from all locations. The page will refresh to show the changes.")
+        // Force page refresh to reload clean data
         window.location.reload()
-      } else {
+      } catch (error) {
+        console.error("Error clearing employees:", error)
         alert("Failed to clear employees. Please try again.")
       }
     }
