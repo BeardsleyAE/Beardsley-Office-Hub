@@ -276,9 +276,12 @@ export default function HomePage() {
                           </DialogHeader>
                           <div className="mt-4">
                             <img
-                              src={`/placeholder.svg?height=600&width=800&query=Parking map for ${location.name} office building`}
+                              src={location.parkingMap || `/placeholder.svg?height=600&width=800&query=Parking map for ${location.name} office building`}
                               alt={`${location.name} Parking Map`}
                               className="w-full rounded-md"
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).src = `/placeholder.svg?height=600&width=800&query=Parking map for ${location.name} office building`
+                              }}
                             />
                             <div className="mt-4 p-4 bg-gray-50 rounded-md">
                               <h3 className="font-semibold text-lg mb-2">Parking Information</h3>
