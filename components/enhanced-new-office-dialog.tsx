@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState, useRef } from "react"
-import { Plus, Building, MapPin, Phone, Clock, Wifi, Upload, ImageIcon } from "lucide-react"
+import { Plus, Building, MapPin, Phone, Clock, Wifi, Upload, ImageIcon, Users } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { addNewLocation } from "@/lib/data"
+import { addEmployeeToMapping, getVantagePointUrl, getPhotoUrl } from "@/lib/employee-data"
 
 interface EnhancedNewOfficeDialogProps {
   onOfficeAdded: () => void
@@ -27,7 +28,10 @@ export function EnhancedNewOfficeDialog({ onOfficeAdded, buttonProps = {} }: Enh
   const [isOpen, setIsOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [csvData, setCsvData] = useState("")
+  const [csvFile, setCsvFile] = useState<File | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const csvFileInputRef = useRef<HTMLInputElement>(null)
   const [formData, setFormData] = useState({
     name: "",
     address: "",
@@ -51,6 +55,65 @@ export function EnhancedNewOfficeDialog({ onOfficeAdded, buttonProps = {} }: Enh
     }
   }
 
+  const handleCsvUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      setCsvFile(file)
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        setCsvData(e.target?.result as string)
+      }
+      reader.readAsText(file)
+    }
+  }
+
+  const processEmployeesFromCsv = (csvData: string) => {
+    const employees: any[] = []
+    
+    try {
+      const lines = csvData.trim().split('\n')
+      if (lines.length < 2) return employees
+      
+      const headers = lines[0].split(',').map(h => h.trim().toLowerCase())
+      
+      for (let i = 1; i < lines.length; i++) {
+        const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''))
+        if (values.length < headers.length) continue
+        
+        const empObj: any = {}
+        headers.forEach((header, index) => {
+          empObj[header] = values[index] || ""
+        })
+        
+        const employeeName = empObj.name || empObj.fullname || empObj["full name"] || `Employee ${i}`
+        const employeeNumber = empObj.employeenumber || empObj["employee number"] || empObj.number || empObj.id || ""
+        
+        // Add to employee mapping if employee number exists
+        if (employeeNumber && employeeName) {
+          addEmployeeToMapping(employeeName, employeeNumber)
+        }
+        
+        const employee = {
+          id: `emp-${Date.now()}-${i}`,
+          name: employeeName,
+          title: empObj.title || empObj.position || empObj.role || "Employee",
+          email: empObj.email || empObj["email address"] || `${employeeName.toLowerCase().replace(/\s+/g, ".")}@beardsley.com`,
+          phone: empObj.phone || empObj["phone number"] || empObj.telephone || "",
+          employeeNumber: employeeNumber,
+          profileUrl: employeeNumber ? getVantagePointUrl(employeeName) : "#",
+          avatar: getPhotoUrl(employeeName),
+          notes: empObj.notes || empObj.description || `Imported from CSV on ${new Date().toLocaleDateString()}.`,
+        }
+        
+        employees.push(employee)
+      }
+    } catch (error) {
+      console.error("Error processing CSV:", error)
+    }
+    
+    return employees
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
@@ -65,6 +128,20 @@ export function EnhancedNewOfficeDialog({ onOfficeAdded, buttonProps = {} }: Enh
           reader.readAsDataURL(formData.image!)
         })
       }
+
+      // Process employees from CSV if provided
+      const employees = csvData ? processEmployeesFromCsv(csvData) : []
+      
+      // Create seats for employees (plus some extra empty seats)
+      const totalSeats = Math.max(employees.length + 5, 10) // At least 10 seats
+      const seats = Array.from({ length: totalSeats }, (_, index) => ({
+        id: `seat-${index + 1}`,
+        x: 110 + (index % 5) * 80,
+        y: 220 + Math.floor(index / 5) * 80,
+        rotation: 0,
+        furnitureId: index < 5 ? `desk-${index + 2}` : null,
+        employee: index < employees.length ? employees[index] : null,
+      }))
 
       // Create new location data structure
       const newLocation = {
@@ -124,14 +201,7 @@ export function EnhancedNewOfficeDialog({ onOfficeAdded, buttonProps = {} }: Enh
               { id: "exit-1", type: "exit", name: "Emergency Exit", x: 470, y: 50 },
               { id: "kitchen-1", type: "kitchen", name: "Kitchen", x: 470, y: 120 },
             ],
-            seats: Array.from({ length: 10 }, (_, index) => ({
-              id: `seat-${index + 1}`,
-              x: 110 + (index % 5) * 80,
-              y: 220 + Math.floor(index / 5) * 80,
-              rotation: 0,
-              furnitureId: index < 5 ? `desk-${index + 2}` : null,
-              employee: null, // Empty seats for new office
-            })),
+            seats: seats,
           },
         ],
       }
@@ -149,9 +219,16 @@ export function EnhancedNewOfficeDialog({ onOfficeAdded, buttonProps = {} }: Enh
           image: null,
         })
         setImagePreview(null)
+        setCsvData("")
+        setCsvFile(null)
+        if (csvFileInputRef.current) csvFileInputRef.current.value = ""
 
         setIsOpen(false)
         onOfficeAdded()
+        
+        if (employees.length > 0) {
+          alert(`Office created successfully with ${employees.length} employees imported from CSV!`)
+        }
       } else {
         alert("Failed to create office. An office with this name may already exist.")
       }
@@ -186,7 +263,7 @@ export function EnhancedNewOfficeDialog({ onOfficeAdded, buttonProps = {} }: Enh
             Create New Office
           </DialogTitle>
           <DialogDescription className="text-base">
-            Add a new office location to the system. You can customize the layout and add employees later.
+            Add a new office location to the system. You can customize the layout and add employees later, or upload a CSV file to import employees now.
           </DialogDescription>
         </DialogHeader>
 
@@ -239,6 +316,64 @@ export function EnhancedNewOfficeDialog({ onOfficeAdded, buttonProps = {} }: Enh
                 type="file"
                 accept="image/*"
                 onChange={handleImageUpload}
+                className="hidden"
+                disabled={isLoading}
+              />
+            </div>
+          </div>
+
+          {/* Employee CSV Upload */}
+          <div className="space-y-3">
+            <Label className="flex items-center gap-2 text-base font-medium">
+              <Users className="h-4 w-4 text-beardsley-red" />
+              Employee Data (Optional)
+            </Label>
+            <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-beardsley-orange transition-colors">
+              {csvFile ? (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-center gap-2 text-beardsley-orange">
+                    <Users className="h-5 w-5" />
+                    <span className="font-medium">{csvFile.name}</span>
+                  </div>
+                  <p className="text-sm text-gray-600">
+                    {csvData.split('\n').length - 1} employees will be imported
+                  </p>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setCsvFile(null)
+                      setCsvData("")
+                      if (csvFileInputRef.current) csvFileInputRef.current.value = ""
+                    }}
+                  >
+                    Remove CSV
+                  </Button>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <Upload className="h-8 w-8 text-gray-400 mx-auto" />
+                  <div>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => csvFileInputRef.current?.click()}
+                      disabled={isLoading}
+                    >
+                      Upload Employee CSV
+                    </Button>
+                    <p className="text-sm text-gray-500 mt-2">
+                      CSV with columns: name, title, email, phone, employeeNumber
+                    </p>
+                  </div>
+                </div>
+              )}
+              <input
+                ref={csvFileInputRef}
+                type="file"
+                accept=".csv"
+                onChange={handleCsvUpload}
                 className="hidden"
                 disabled={isLoading}
               />
