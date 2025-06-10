@@ -28,7 +28,7 @@ import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { PhotoUpload } from "@/components/photo-upload"
 import { ParkingMapUpload } from "@/components/parking-map-upload"
-import { getPhotoUrl, openPrinterDriverLocation, getVantagePointUrl } from "@/lib/employee-data"
+import { getPhotoUrl, openPrinterDriverLocation, getVantagePointUrl, addEmployeeToMapping } from "@/lib/employee-data"
 import { clearAllEmployees, forceResetAllEmployees } from "@/lib/data"
 
 interface EnhancedEditModePanelProps {
@@ -106,6 +106,11 @@ export function EnhancedEditModePanel({
 
   const handleSaveEmployee = () => {
     if (editingEmployee) {
+      // Add to employee mapping if employee number is provided
+      if (editingEmployee.employeeNumber && editingEmployee.name) {
+        addEmployeeToMapping(editingEmployee.name, editingEmployee.employeeNumber)
+      }
+      
       // Update the employee's profileUrl with the new employee number
       editingEmployee.profileUrl = getVantagePointUrl(editingEmployee.name)
       onUpdateEmployee(editingEmployee)
@@ -123,6 +128,11 @@ export function EnhancedEditModePanel({
   const handleAddNewEmployee = () => {
     if (newEmployee.name && newEmployee.email) {
       const photoUrl = newEmployee.photo || getPhotoUrl(newEmployee.name)
+      
+      // Add to employee mapping if employee number is provided
+      if (newEmployee.employeeNumber && newEmployee.name) {
+        addEmployeeToMapping(newEmployee.name, newEmployee.employeeNumber)
+      }
       
       // Generate VantagePoint URL based on employee number or name
       const profileUrl = newEmployee.employeeNumber 
@@ -201,19 +211,24 @@ export function EnhancedEditModePanel({
         }
 
         if (employeeData) {
+          const employeeName = employeeData.name || employeeData.fullname || employeeData["full name"] || "Unknown Employee"
+          
+          // Add to employee mapping
+          addEmployeeToMapping(employeeName, targetNumber)
+          
           // Create employee object with proper mapping
           const newEmp = {
             id: `emp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-            name: employeeData.name || employeeData.fullname || employeeData["full name"] || "Unknown Employee",
+            name: employeeName,
             title: employeeData.title || employeeData.position || employeeData.role || "Employee",
             email:
               employeeData.email ||
               employeeData["email address"] ||
-              `${(employeeData.name || "employee").toLowerCase().replace(/\s+/g, ".")}@beardsley.com`,
+              `${(employeeName || "employee").toLowerCase().replace(/\s+/g, ".")}@beardsley.com`,
             phone: employeeData.phone || employeeData["phone number"] || employeeData.telephone || "",
             employeeNumber: targetNumber,
-            profileUrl: getVantagePointUrl(employeeData.name || "Unknown Employee"), // Generate proper VantagePoint URL
-            avatar: getPhotoUrl(employeeData.name || "Unknown Employee"),
+            profileUrl: getVantagePointUrl(employeeName), // This should now work with the mapping
+            avatar: getPhotoUrl(employeeName),
             notes:
               employeeData.notes ||
               employeeData.description ||
@@ -347,6 +362,9 @@ export function EnhancedEditModePanel({
             <Settings className="mr-2 h-4 w-4" />
             Enable Edit Mode
           </Button>
+          <p className="text-sm text-muted-foreground mt-2 text-center">
+            Edit mode allows you to add employees, modify layout, and manage office settings
+          </p>
         </CardContent>
       </Card>
     )
@@ -383,7 +401,7 @@ export function EnhancedEditModePanel({
           </TabsList>
 
           <TabsContent value="employee" className="space-y-4">
-            {/* Add New Employee Button */}
+            {/* Add New Employee Button - Always available */}
             <Dialog open={showAddEmployee} onOpenChange={setShowAddEmployee}>
               <DialogTrigger asChild>
                 <Button variant="outline" className="w-full">
@@ -476,7 +494,7 @@ export function EnhancedEditModePanel({
               </DialogContent>
             </Dialog>
 
-            {/* Upload Employee by Number */}
+            {/* Upload Employee by Number - Always available */}
             <Dialog open={showUploadEmployee} onOpenChange={setShowUploadEmployee}>
               <DialogTrigger asChild>
                 <Button
@@ -697,8 +715,9 @@ export function EnhancedEditModePanel({
                 )}
               </div>
             ) : (
-              <div className="text-center text-muted-foreground">
-                <p>Select an employee to edit</p>
+              <div className="text-center text-muted-foreground space-y-2">
+                <p>No employee selected</p>
+                <p className="text-xs">Click an employee on the map to edit, or add new employees using the buttons above</p>
               </div>
             )}
           </TabsContent>
@@ -709,185 +728,191 @@ export function EnhancedEditModePanel({
               <Badge variant="outline">{location.name}</Badge>
             </div>
 
-            {/* Add Seat Dialog */}
-            <Dialog open={showAddSeatDialog} onOpenChange={setShowAddSeatDialog}>
-              <DialogTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="w-full border-beardsley-green text-beardsley-green hover:bg-beardsley-green hover:text-white"
-                >
-                  <UserPlus className="mr-1 h-3 w-3" />
-                  Add Seat
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-md">
-                <DialogHeader>
-                  <DialogTitle>Add New Seat</DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4">
-                  <div>
-                    <Label htmlFor="seat-x">X Position</Label>
-                    <Input
-                      id="seat-x"
-                      type="number"
-                      value={newSeat.x}
-                      onChange={(e) => setNewSeat({ ...newSeat, x: Number.parseInt(e.target.value) || 0 })}
-                    />
+            {/* Always show seat and furniture management */}
+            <div className="space-y-3">
+              <Label className="text-sm font-medium">Layout Management</Label>
+              
+              {/* Add Seat Dialog */}
+              <Dialog open={showAddSeatDialog} onOpenChange={setShowAddSeatDialog}>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="w-full border-beardsley-green text-beardsley-green hover:bg-beardsley-green hover:text-white"
+                  >
+                    <UserPlus className="mr-1 h-3 w-3" />
+                    Add Seat
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>Add New Seat</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <div>
+                      <Label htmlFor="seat-x">X Position</Label>
+                      <Input
+                        id="seat-x"
+                        type="number"
+                        value={newSeat.x}
+                        onChange={(e) => setNewSeat({ ...newSeat, x: Number.parseInt(e.target.value) || 0 })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="seat-y">Y Position</Label>
+                      <Input
+                        id="seat-y"
+                        type="number"
+                        value={newSeat.y}
+                        onChange={(e) => setNewSeat({ ...newSeat, y: Number.parseInt(e.target.value) || 0 })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="seat-rotation">Rotation (degrees)</Label>
+                      <Input
+                        id="seat-rotation"
+                        type="number"
+                        value={newSeat.rotation}
+                        onChange={(e) => setNewSeat({ ...newSeat, rotation: Number.parseInt(e.target.value) || 0 })}
+                      />
+                    </div>
+                    <div className="flex gap-2">
+                      <Button onClick={handleAddSeat} className="flex-1 bg-beardsley-green hover:bg-beardsley-green-dark">
+                        Add Seat
+                      </Button>
+                      <Button variant="outline" onClick={() => setShowAddSeatDialog(false)} className="flex-1">
+                        Cancel
+                      </Button>
+                    </div>
                   </div>
-                  <div>
-                    <Label htmlFor="seat-y">Y Position</Label>
-                    <Input
-                      id="seat-y"
-                      type="number"
-                      value={newSeat.y}
-                      onChange={(e) => setNewSeat({ ...newSeat, y: Number.parseInt(e.target.value) || 0 })}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="seat-rotation">Rotation (degrees)</Label>
-                    <Input
-                      id="seat-rotation"
-                      type="number"
-                      value={newSeat.rotation}
-                      onChange={(e) => setNewSeat({ ...newSeat, rotation: Number.parseInt(e.target.value) || 0 })}
-                    />
-                  </div>
-                  <div className="flex gap-2">
-                    <Button onClick={handleAddSeat} className="flex-1 bg-beardsley-green hover:bg-beardsley-green-dark">
-                      Add Seat
-                    </Button>
-                    <Button variant="outline" onClick={() => setShowAddSeatDialog(false)} className="flex-1">
-                      Cancel
-                    </Button>
-                  </div>
-                </div>
-              </DialogContent>
-            </Dialog>
+                </DialogContent>
+              </Dialog>
 
-            {/* Add Empty Seat Button */}
-            <Button
-              variant="outline"
-              className="w-full border-gray-400 text-gray-600 hover:bg-gray-100"
-              onClick={() => {
-                const newSeatObj = {
-                  id: `seat-${Date.now()}`,
-                  x: 100 + Math.random() * 200,
-                  y: 100 + Math.random() * 200,
-                  rotation: 0,
-                  employee: null,
-                }
-                onAddSeat(newSeatObj, currentFloorId)
-              }}
-            >
-              <Plus className="mr-1 h-3 w-3" />
-              Add Empty Seat
-            </Button>
+              {/* Add Empty Seat Button */}
+              <Button
+                variant="outline"
+                className="w-full border-gray-400 text-gray-600 hover:bg-gray-100"
+                onClick={() => {
+                  const newSeatObj = {
+                    id: `seat-${Date.now()}`,
+                    x: 100 + Math.random() * 200,
+                    y: 100 + Math.random() * 200,
+                    rotation: 0,
+                    employee: null,
+                  }
+                  onAddSeat(newSeatObj, currentFloorId)
+                }}
+              >
+                <Plus className="mr-1 h-3 w-3" />
+                Add Empty Seat
+              </Button>
 
-            {/* Add Furniture Dialog */}
-            <Dialog open={showAddFurnitureDialog} onOpenChange={setShowAddFurnitureDialog}>
-              <DialogTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="w-full border-beardsley-orange text-beardsley-orange hover:bg-beardsley-orange hover:text-white"
-                >
-                  <Plus className="mr-1 h-3 w-3" />
-                  Add Furniture
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-md">
-                <DialogHeader>
-                  <DialogTitle>Add New Furniture</DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4">
-                  <div>
-                    <Label htmlFor="furniture-type">Type</Label>
-                    <Select
-                      value={newFurniture.type}
-                      onValueChange={(value) => setNewFurniture({ ...newFurniture, type: value })}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select furniture type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="desk">Desk</SelectItem>
-                        <SelectItem value="table">Table</SelectItem>
-                        <SelectItem value="cabinet">Cabinet</SelectItem>
-                        <SelectItem value="bookshelf">Bookshelf</SelectItem>
-                        <SelectItem value="plant">Plant</SelectItem>
-                        <SelectItem value="whiteboard">Whiteboard</SelectItem>
-                        <SelectItem value="chair">Chair</SelectItem>
-                        <SelectItem value="sofa">Sofa</SelectItem>
-                      </SelectContent>
-                    </Select>
+              {/* Add Furniture Dialog */}
+              <Dialog open={showAddFurnitureDialog} onOpenChange={setShowAddFurnitureDialog}>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="w-full border-beardsley-orange text-beardsley-orange hover:bg-beardsley-orange hover:text-white"
+                  >
+                    <Plus className="mr-1 h-3 w-3" />
+                    Add Furniture
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>Add New Furniture</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <div>
+                      <Label htmlFor="furniture-type">Type</Label>
+                      <Select
+                        value={newFurniture.type}
+                        onValueChange={(value) => setNewFurniture({ ...newFurniture, type: value })}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select furniture type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="desk">Desk</SelectItem>
+                          <SelectItem value="table">Table</SelectItem>
+                          <SelectItem value="cabinet">Cabinet</SelectItem>
+                          <SelectItem value="bookshelf">Bookshelf</SelectItem>
+                          <SelectItem value="plant">Plant</SelectItem>
+                          <SelectItem value="whiteboard">Whiteboard</SelectItem>
+                          <SelectItem value="chair">Chair</SelectItem>
+                          <SelectItem value="sofa">Sofa</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <Label htmlFor="furniture-x">X Position</Label>
+                      <Input
+                        id="furniture-x"
+                        type="number"
+                        value={newFurniture.x}
+                        onChange={(e) => setNewFurniture({ ...newFurniture, x: Number.parseInt(e.target.value) || 0 })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="furniture-y">Y Position</Label>
+                      <Input
+                        id="furniture-y"
+                        type="number"
+                        value={newFurniture.y}
+                        onChange={(e) => setNewFurniture({ ...newFurniture, y: Number.parseInt(e.target.value) || 0 })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="furniture-width">Width</Label>
+                      <Input
+                        id="furniture-width"
+                        type="number"
+                        value={newFurniture.width}
+                        onChange={(e) =>
+                          setNewFurniture({ ...newFurniture, width: Number.parseInt(e.target.value) || 0 })
+                        }
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="furniture-height">Height</Label>
+                      <Input
+                        id="furniture-height"
+                        type="number"
+                        value={newFurniture.height}
+                        onChange={(e) =>
+                          setNewFurniture({ ...newFurniture, height: Number.parseInt(e.target.value) || 0 })
+                        }
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="furniture-rotation">Rotation (degrees)</Label>
+                      <Input
+                        id="furniture-rotation"
+                        type="number"
+                        value={newFurniture.rotation}
+                        onChange={(e) =>
+                          setNewFurniture({ ...newFurniture, rotation: Number.parseInt(e.target.value) || 0 })
+                        }
+                      />
+                    </div>
+                    <div className="flex gap-2">
+                      <Button
+                        onClick={handleAddFurniture}
+                        className="flex-1 bg-beardsley-orange hover:bg-beardsley-orange-dark"
+                      >
+                        Add Furniture
+                      </Button>
+                      <Button variant="outline" onClick={() => setShowAddFurnitureDialog(false)} className="flex-1">
+                        Cancel
+                      </Button>
+                    </div>
                   </div>
-                  <div>
-                    <Label htmlFor="furniture-x">X Position</Label>
-                    <Input
-                      id="furniture-x"
-                      type="number"
-                      value={newFurniture.x}
-                      onChange={(e) => setNewFurniture({ ...newFurniture, x: Number.parseInt(e.target.value) || 0 })}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="furniture-y">Y Position</Label>
-                    <Input
-                      id="furniture-y"
-                      type="number"
-                      value={newFurniture.y}
-                      onChange={(e) => setNewFurniture({ ...newFurniture, y: Number.parseInt(e.target.value) || 0 })}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="furniture-width">Width</Label>
-                    <Input
-                      id="furniture-width"
-                      type="number"
-                      value={newFurniture.width}
-                      onChange={(e) =>
-                        setNewFurniture({ ...newFurniture, width: Number.parseInt(e.target.value) || 0 })
-                      }
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="furniture-height">Height</Label>
-                    <Input
-                      id="furniture-height"
-                      type="number"
-                      value={newFurniture.height}
-                      onChange={(e) =>
-                        setNewFurniture({ ...newFurniture, height: Number.parseInt(e.target.value) || 0 })
-                      }
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="furniture-rotation">Rotation (degrees)</Label>
-                    <Input
-                      id="furniture-rotation"
-                      type="number"
-                      value={newFurniture.rotation}
-                      onChange={(e) =>
-                        setNewFurniture({ ...newFurniture, rotation: Number.parseInt(e.target.value) || 0 })
-                      }
-                    />
-                  </div>
-                  <div className="flex gap-2">
-                    <Button
-                      onClick={handleAddFurniture}
-                      className="flex-1 bg-beardsley-orange hover:bg-beardsley-orange-dark"
-                    >
-                      Add Furniture
-                    </Button>
-                    <Button variant="outline" onClick={() => setShowAddFurnitureDialog(false)} className="flex-1">
-                      Cancel
-                    </Button>
-                  </div>
-                </div>
-              </DialogContent>
-            </Dialog>
+                </DialogContent>
+              </Dialog>
+            </div>
 
             <Separator />
 
+            {/* Office details editing */}
             {editingLocation ? (
               <div className="space-y-3">
                 <div>
@@ -1016,35 +1041,32 @@ export function EnhancedEditModePanel({
                         <div className="flex-1 min-w-0">
                           <p className="font-medium text-beardsley-red truncate">{printer.name}</p>
                           <p className="text-sm text-muted-foreground truncate">{printer.ipAddress}</p>
-                          <p className="text-xs text-beardsley-green">{printer.status}</p>
                         </div>
-                        <div className="flex flex-wrap gap-2">
-                          <Button
-                            onClick={() => handlePrinterDriverAccess(printer.name)}
-                            variant="outline"
-                            size="sm"
-                            className="border-beardsley-orange text-beardsley-orange hover:bg-beardsley-orange hover:text-white flex-1 min-w-0"
-                          >
-                            Drivers
-                          </Button>
-                          <Select onValueChange={(value) => onMovePrinter(printer.id, value)}>
-                            <SelectTrigger className="flex-1 min-w-0">
-                              <SelectValue placeholder="Move" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {allLocations
-                                .filter((loc) => loc.id !== location.id)
-                                .map((loc) => (
-                                  <SelectItem key={loc.id} value={loc.id}>
-                                    {loc.name}
-                                  </SelectItem>
-                                ))}
-                            </SelectContent>
-                          </Select>
-                          <Button onClick={() => onDeletePrinter(printer.id)} variant="destructive" size="sm">
-                            <Trash2 className="h-3 w-3" />
-                          </Button>
-                        </div>
+                        <Button
+                          onClick={() => handlePrinterDriverAccess(printer.name)}
+                          variant="outline"
+                          size="sm"
+                          className="border-beardsley-orange text-beardsley-orange hover:bg-beardsley-orange hover:text-white flex-1 min-w-0"
+                        >
+                          Drivers
+                        </Button>
+                        <Select onValueChange={(value) => onMovePrinter(printer.id, value)}>
+                          <SelectTrigger className="flex-1 min-w-0">
+                            <SelectValue placeholder="Move" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {allLocations
+                              .filter((loc) => loc.id !== location.id)
+                              .map((loc) => (
+                                <SelectItem key={loc.id} value={loc.id}>
+                                  {loc.name}
+                                </SelectItem>
+                              ))}
+                          </SelectContent>
+                        </Select>
+                        <Button onClick={() => onDeletePrinter(printer.id)} variant="destructive" size="sm">
+                          <Trash2 className="h-3 w-3" />
+                        </Button>
                       </div>
                     )),
                 )}
