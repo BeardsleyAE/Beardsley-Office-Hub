@@ -1,4 +1,4 @@
-// Auto-generated office seating data - Last updated: 2025-06-12T19:20:51.999Z
+// Auto-generated office seating data - Last updated: 2025-06-12T19:28:00.542Z
 // This file is automatically updated when admins make changes through the Office Hub
 
 // Storage key for localStorage
@@ -698,8 +698,8 @@ const defaultLocations = {
             "id": "room-1749754979960",
             "name": "  ",
             "type": "office",
-            "x": 451.875,
-            "y": 146.25,
+            "x": 445.625,
+            "y": 147.5,
             "width": 50,
             "height": 50
           },
@@ -707,8 +707,8 @@ const defaultLocations = {
             "id": "room-1749755007696",
             "name": "Office",
             "type": "office",
-            "x": 226.25,
-            "y": 195,
+            "x": 188.75,
+            "y": 196.25,
             "width": 229.375,
             "height": 123.75
           },
@@ -716,8 +716,8 @@ const defaultLocations = {
             "id": "room-1749755070551",
             "name": "Office",
             "type": "office",
-            "x": 293.125,
-            "y": 317.5,
+            "x": 291.875,
+            "y": 320,
             "width": 180,
             "height": 172.5
           },
@@ -727,14 +727,14 @@ const defaultLocations = {
             "type": "office",
             "x": 536.25,
             "y": 320,
-            "width": 145.625,
-            "height": 176.25
+            "width": 144.375,
+            "height": 171.25
           },
           {
             "id": "room-1749755130375",
             "name": "Closet",
             "type": "kitchen",
-            "x": 475,
+            "x": 473.75,
             "y": 318.75,
             "width": 60.625,
             "height": 172.5
@@ -813,26 +813,59 @@ const defaultLocations = {
             "y": 88.37527465820312,
             "rotation": 0,
             "furnitureId": "desk-kjq",
-            "employee": null
+            "employee": {
+              "name": "Julia Furlong",
+              "title": "Marketing Manager",
+              "email": "jfurlong@beardsley.com",
+              "phone": "jfurlong@beardsley.com",
+              "notes": "",
+              "employeeNumber": "",
+              "photo": "/photos/Julia-Furlong_Resume.jpg",
+              "id": "emp-1749756253406",
+              "profileUrl": "#",
+              "avatar": "/photos/Julia-Furlong_Resume.jpg"
+            }
           },
           {
             "id": "seat-1749755502086",
-            "x": 272.2663573156726,
-            "y": 244.962356170413,
+            "x": 417.477294921875,
+            "y": 430.099365234375,
             "rotation": 0,
-            "employee": null
+            "employee": {
+              "name": "Michelle Thompson",
+              "title": "Accountant",
+              "email": "mthompson@beardsley.com",
+              "phone": "3152537301 2241",
+              "notes": "",
+              "employeeNumber": "00346",
+              "photo": "/photos/Michelle-Thompson_Resume.jpg",
+              "id": "emp-1749756302748",
+              "profileUrl": "https://beardsley.deltekfirst.com/Beardsley/app/#!Employees/view/0/0/00346/hybrid",
+              "avatar": "/photos/Michelle-Thompson_Resume.jpg"
+            }
           },
           {
             "id": "seat-1749755522174",
-            "x": 436.5950012207031,
-            "y": 433.27001953125,
+            "x": 628.7568969726562,
+            "y": 370.9064025878906,
             "rotation": 0,
-            "employee": null
+            "employee": {
+              "name": "Tom Wight",
+              "title": "Marketing Manager",
+              "email": "twight@beardsley.com",
+              "phone": "315-253-7301 2222",
+              "notes": "",
+              "employeeNumber": "00186",
+              "photo": "/photos/Tom-Wight_Resume.jpg",
+              "id": "emp-1749756437387",
+              "profileUrl": "https://beardsley.deltekfirst.com/Beardsley/app/#!Employees/view/0/0/00186/hybrid",
+              "avatar": "/photos/Tom-Wight_Resume.jpg"
+            }
           },
           {
             "id": "seat-1749755557086",
-            "x": 598.3450012207031,
-            "y": 429.77001953125,
+            "x": 247.8843994140625,
+            "y": 259.5633544921875,
             "rotation": 0,
             "employee": null
           }
