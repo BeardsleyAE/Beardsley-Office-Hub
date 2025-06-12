@@ -1,4 +1,4 @@
-// Auto-generated office seating data - Last updated: 2025-06-12T19:13:49.469Z
+// Auto-generated office seating data - Last updated: 2025-06-12T19:20:51.999Z
 // This file is automatically updated when admins make changes through the Office Hub
 
 // Storage key for localStorage
@@ -698,8 +698,8 @@ const defaultLocations = {
             "id": "room-1749754979960",
             "name": "  ",
             "type": "office",
-            "x": 445.625,
-            "y": 147.5,
+            "x": 451.875,
+            "y": 146.25,
             "width": 50,
             "height": 50
           },
