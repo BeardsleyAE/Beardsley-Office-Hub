@@ -1,4 +1,4 @@
-// Auto-generated office seating data - Last updated: 2025-06-09T20:41:31.389Z
+// Auto-generated office seating data - Last updated: 2025-06-12T19:13:49.469Z
 // This file is automatically updated when admins make changes through the Office Hub
 
 // Storage key for localStorage
@@ -470,9 +470,9 @@ const defaultLocations = {
             "id": "conf-room-1",
             "name": "Conference Room 1",
             "x": 220,
-            "y": 50,
-            "width": 120,
-            "height": 80,
+            "y": 48.75,
+            "width": 169.375,
+            "height": 101.25,
             "type": "conference"
           },
           {
@@ -653,6 +653,13 @@ const defaultLocations = {
             "y": 530.7478637695312,
             "rotation": 0,
             "employee": null
+          },
+          {
+            "id": "seat-1749755505030",
+            "x": 539.4743041992188,
+            "y": 294.5041198730469,
+            "rotation": 0,
+            "employee": null
           }
         ]
       },
@@ -661,76 +668,121 @@ const defaultLocations = {
         "name": "Second Floor",
         "rooms": [
           {
-            "id": "open-center",
-            "name": "Open Area",
-            "x": 288.75,
-            "y": 110,
-            "width": 200,
-            "height": 150,
-            "type": "office"
+            "id": "room-1749754851696",
+            "name": "Office",
+            "type": "office",
+            "x": 533.125,
+            "y": 23.75,
+            "width": 150,
+            "height": 175
           },
           {
-            "id": "conf-center",
-            "name": "Green Conference",
-            "x": 513.75,
-            "y": 130,
-            "width": 120,
-            "height": 100,
-            "type": "conference"
+            "id": "room-1749754921304",
+            "name": "Kitchen",
+            "type": "conference",
+            "x": 453.125,
+            "y": 26.25,
+            "width": 79.375,
+            "height": 171.25
+          },
+          {
+            "id": "room-1749754950464",
+            "name": "Office",
+            "type": "office",
+            "x": 303.125,
+            "y": 25,
+            "width": 148.75,
+            "height": 173.75
+          },
+          {
+            "id": "room-1749754979960",
+            "name": "  ",
+            "type": "office",
+            "x": 445.625,
+            "y": 147.5,
+            "width": 50,
+            "height": 50
+          },
+          {
+            "id": "room-1749755007696",
+            "name": "Office",
+            "type": "office",
+            "x": 226.25,
+            "y": 195,
+            "width": 229.375,
+            "height": 123.75
+          },
+          {
+            "id": "room-1749755070551",
+            "name": "Office",
+            "type": "office",
+            "x": 293.125,
+            "y": 317.5,
+            "width": 180,
+            "height": 172.5
+          },
+          {
+            "id": "room-1749755096143",
+            "name": "Office",
+            "type": "office",
+            "x": 536.25,
+            "y": 320,
+            "width": 145.625,
+            "height": 176.25
+          },
+          {
+            "id": "room-1749755130375",
+            "name": "Closet",
+            "type": "kitchen",
+            "x": 475,
+            "y": 318.75,
+            "width": 60.625,
+            "height": 172.5
+          },
+          {
+            "id": "room-1749755217519",
+            "name": "Bathroom",
+            "type": "storage",
+            "x": 685,
+            "y": 25,
+            "width": 79.375,
+            "height": 97.5
+          },
+          {
+            "id": "room-1749755255255",
+            "name": "HELM",
+            "type": "print",
+            "x": 682.5,
+            "y": 251.25,
+            "width": 233.125,
+            "height": 140
+          },
+          {
+            "id": "room-1749755296319",
+            "name": "HELM",
+            "type": "print",
+            "x": 683.75,
+            "y": 125,
+            "width": 81.875,
+            "height": 123.75
           }
         ],
         "furniture": [
           {
-            "id": "desk-kjq",
-            "type": "desk",
-            "x": 300,
-            "y": 202.5,
-            "width": 60,
-            "height": 40,
-            "rotation": 0
-          },
-          {
-            "id": "desk-jmp",
-            "type": "desk",
-            "x": 302.5,
-            "y": 125,
-            "width": 60,
-            "height": 40,
-            "rotation": 0
-          },
-          {
             "id": "desk-dgm",
             "type": "desk",
-            "x": 148.75,
-            "y": 213.75,
+            "x": 385,
+            "y": 105,
             "width": 60,
             "height": 40,
             "rotation": 0
           },
           {
-            "id": "desk-tac",
+            "id": "furniture-1749755475310",
             "type": "desk",
-            "x": 412.5,
-            "y": 125,
-            "width": 60,
-            "height": 40,
-            "rotation": 0
-          },
-          {
-            "id": "desk-faf",
-            "type": "desk",
-            "x": 415,
-            "y": 207.5,
-            "width": 60,
-            "height": 40,
-            "rotation": 0
-          },
-          {
-            "id": "table-conf",
-            "type": "table",
-            "x": 142.5,
-            "y": 111.25,
-            "width": 120,
+            "x": 278.75,
+            "y": 226.25,
+            "width": 40,
             "height": 60,
             "rotation": 0
           }
@@ -743,38 +795,45 @@ const defaultLocations = {
             "ipAddress": "192.168.4.101",
             "queueName": "AUBURN-PRINT-01",
             "status": "Online",
-            "x": 567.5,
-            "y": 147.5
+            "x": 468.75,
+            "y": 128.75
           },
           {
             "id": "restroom-1",
             "type": "restroom",
             "name": "Restroom",
-            "x": 500,
-            "y": 120
-          },
-          {
-            "id": "exit-1",
-            "type": "exit",
-            "name": "Emergency Exit",
-            "x": 391.25,
-            "y": 81.25
-          },
-          {
-            "id": "kitchen-1",
-            "type": "kitchen",
-            "name": "Kitchen",
-            "x": 393.75,
-            "y": 250
+            "x": 728.75,
+            "y": 52.5
           }
         ],
         "seats": [
           {
             "id": "auburn-seat-16",
-            "x": 162.19952392578125,
-            "y": 159.1807861328125,
+            "x": 420.41717529296875,
+            "y": 88.37527465820312,
             "rotation": 0,
             "furnitureId": "desk-kjq",
+            "employee": null
+          },
+          {
+            "id": "seat-1749755502086",
+            "x": 272.2663573156726,
+            "y": 244.962356170413,
+            "rotation": 0,
+            "employee": null
+          },
+          {
+            "id": "seat-1749755522174",
+            "x": 436.5950012207031,
+            "y": 433.27001953125,
+            "rotation": 0,
+            "employee": null
+          },
+          {
+            "id": "seat-1749755557086",
+            "x": 598.3450012207031,
+            "y": 429.77001953125,
+            "rotation": 0,
             "employee": null
           }
         ]
@@ -1163,6 +1222,33 @@ export function resetToDefaults(): void {
   }
 }
 
+export function clearAllEmployees(): boolean {
+  currentData = loadFromStorage()
+  
+  try {
+    // Iterate through all locations and floors to clear employees
+    for (const locationId in currentData) {
+      const location = currentData[locationId]
+      if (location.floors) {
+        location.floors.forEach((floor: any) => {
+          if (floor.seats) {
+            floor.seats.forEach((seat: any) => {
+              seat.employee = null
+            })
+          }
+        })
+      }
+    }
+    
+    saveToStorage(currentData)
+    console.log("✅ All employees cleared from all locations")
+    return true
+  } catch (error) {
+    console.error("❌ Error clearing employees:", error)
+    return false
+  }
+}
+
 // Helper functions
 export function getAllLocations() {
   currentData = loadFromStorage()
@@ -1361,73 +1447,4 @@ export function importData(jsonData: string) {
 // Initialize data from localStorage on module load
 if (typeof window !== "undefined") {
   currentData = loadFromStorage()
-}
-
-export function clearAllEmployees(): boolean {
-  // Clear from localStorage
-  currentData = loadFromStorage()
-  
-  try {
-    // Iterate through all locations and floors to clear employees
-    for (const locationId in currentData) {
-      const location = currentData[locationId]
-      if (location.floors) {
-        location.floors.forEach((floor: any) => {
-          if (floor.seats) {
-            floor.seats.forEach((seat: any) => {
-              seat.employee = null
-            })
-          }
-        })
-      }
-    }
-    
-    saveToStorage(currentData)
-    
-    // Also clear from defaultLocations to ensure fresh start
-    for (const locationId in defaultLocations) {
-      const location = (defaultLocations as any)[locationId]
-      if (location.floors) {
-        location.floors.forEach((floor: any) => {
-          if (floor.seats) {
-            floor.seats.forEach((seat: any) => {
-              seat.employee = null
-            })
-          }
-        })
-      }
-    }
-    
-    console.log("✅ All employees cleared from all locations")
-    return true
-  } catch (error) {
-    console.error("❌ Error clearing employees:", error)
-    return false
-  }
-}
-
-// Force clear all employees on module load to ensure clean state
-export function forceResetAllEmployees(): void {
-  if (typeof window !== "undefined") {
-    // Clear localStorage completely
-    localStorage.removeItem(STORAGE_KEY)
-    
-    // Clear default data
-    for (const locationId in defaultLocations) {
-      const location = (defaultLocations as any)[locationId]
-      if (location.floors) {
-        location.floors.forEach((floor: any) => {
-          if (floor.seats) {
-            floor.seats.forEach((seat: any) => {
-              seat.employee = null
-            })
-          }
-        })
-      }
-    }
-    
-    currentData = defaultLocations
-    saveToStorage(currentData)
-    console.log("🔄 Force reset: All employees cleared and data reset")
-  }
 }
