@@ -1,4 +1,4 @@
-// Auto-generated office seating data - Last updated: 2025-06-12T19:29:31.939Z
+// Auto-generated office seating data - Last updated: 2025-06-12T19:44:32.911Z
 // This file is automatically updated when admins make changes through the Office Hub
 
 // Storage key for localStorage
@@ -458,107 +458,16 @@ const defaultLocations = {
         "name": "First Floor",
         "rooms": [
           {
-            "id": "lobby",
-            "name": "Lobby",
-            "x": 51.25,
-            "y": 50,
-            "width": 150,
-            "height": 100,
-            "type": "reception"
-          },
-          {
-            "id": "conf-room-1",
-            "name": "Conference Room 1",
-            "x": 220,
-            "y": 48.75,
-            "width": 169.375,
-            "height": 101.25,
-            "type": "conference"
-          },
-          {
             "id": "open-area-1",
             "name": "Open Area",
-            "x": 50,
-            "y": 170,
-            "width": 400,
-            "height": 200,
+            "x": 19.25,
+            "y": 261,
+            "width": 86.25,
+            "height": 119.25,
             "type": "office"
           }
         ],
-        "furniture": [
-          {
-            "id": "desk-f1-1",
-            "type": "desk",
-            "x": 80,
-            "y": 200,
-            "width": 60,
-            "height": 40,
-            "rotation": 0
-          },
-          {
-            "id": "desk-f1-2",
-            "type": "desk",
-            "x": 160,
-            "y": 200,
-            "width": 60,
-            "height": 40,
-            "rotation": 0
-          },
-          {
-            "id": "desk-f1-3",
-            "type": "desk",
-            "x": 240,
-            "y": 200,
-            "width": 60,
-            "height": 40,
-            "rotation": 0
-          },
-          {
-            "id": "desk-f1-4",
-            "type": "desk",
-            "x": 320,
-            "y": 200,
-            "width": 60,
-            "height": 40,
-            "rotation": 0
-          },
-          {
-            "id": "desk-f1-5",
-            "type": "desk",
-            "x": 80,
-            "y": 280,
-            "width": 60,
-            "height": 40,
-            "rotation": 0
-          },
-          {
-            "id": "desk-f1-6",
-            "type": "desk",
-            "x": 160,
-            "y": 280,
-            "width": 60,
-            "height": 40,
-            "rotation": 0
-          },
-          {
-            "id": "desk-f1-7",
-            "type": "desk",
-            "x": 240,
-            "y": 280,
-            "width": 60,
-            "height": 40,
-            "rotation": 0
-          },
-          {
-            "id": "desk-f1-8",
-            "type": "desk",
-            "x": 321.25,
-            "y": 281.25,
-            "width": 60,
-            "height": 40,
-            "rotation": 0
-          }
-        ],
+        "furniture": [],
         "amenities": [
           {
             "id": "printer-f1",
@@ -567,76 +476,55 @@ const defaultLocations = {
             "ipAddress": "192.168.4.101",
             "queueName": "AUBURN-F1-PRINT-01",
             "status": "Online",
-            "x": 400,
-            "y": 120
-          },
-          {
-            "id": "restroom-f1",
-            "type": "restroom",
-            "name": "Restroom",
-            "x": 400,
-            "y": 50
-          },
-          {
-            "id": "exit-f1",
-            "type": "exit",
-            "name": "Emergency Exit",
-            "x": 470,
-            "y": 50
-          },
-          {
-            "id": "kitchen-f1",
-            "type": "kitchen",
-            "name": "Kitchen",
-            "x": 470,
-            "y": 120
+            "x": 957,
+            "y": 25
           }
         ],
         "seats": [
           {
             "id": "auburn-f1-seat-1",
-            "x": 110,
-            "y": 220,
+            "x": 75.83200073242188,
+            "y": 576.0079956054688,
             "rotation": 0,
             "furnitureId": "desk-f1-1",
             "employee": null
           },
           {
             "id": "auburn-f1-seat-2",
-            "x": 190,
-            "y": 220,
+            "x": 181,
+            "y": 578.1999969482422,
             "rotation": 0,
             "furnitureId": "desk-f1-2",
             "employee": null
           },
           {
             "id": "auburn-f1-seat-3",
-            "x": 270,
-            "y": 220,
+            "x": 339.20001220703125,
+            "y": 593.1999969482422,
             "rotation": 0,
             "furnitureId": "desk-f1-3",
             "employee": null
           },
           {
             "id": "auburn-f1-seat-4",
-            "x": 350,
-            "y": 220,
+            "x": 436.4000244140625,
+            "y": 587.1999969482422,
             "rotation": 0,
             "furnitureId": "desk-f1-4",
             "employee": null
           },
           {
             "id": "auburn-f1-seat-5",
-            "x": 110,
-            "y": 300,
+            "x": 109.79998779296875,
+            "y": 579.3999938964844,
             "rotation": 0,
             "furnitureId": "desk-f1-5",
             "employee": null
           },
           {
             "id": "seat-1749496564425",
-            "x": 189.43325805664062,
-            "y": 301.48193359375,
+            "x": 144.41058349609375,
+            "y": 582.9412231445312,
             "rotation": 0,
             "employee": null
           },
@@ -698,8 +586,8 @@ const defaultLocations = {
             "id": "room-1749754979960",
             "name": "  ",
             "type": "office",
-            "x": 445.625,
-            "y": 147.5,
+            "x": 451.875,
+            "y": 146.25,
             "width": 50,
             "height": 50
           },
@@ -707,8 +595,8 @@ const defaultLocations = {
             "id": "room-1749755007696",
             "name": "Office",
             "type": "office",
-            "x": 188.75,
-            "y": 196.25,
+            "x": 226.25,
+            "y": 195,
             "width": 229.375,
             "height": 123.75
           },
@@ -716,8 +604,8 @@ const defaultLocations = {
             "id": "room-1749755070551",
             "name": "Office",
             "type": "office",
-            "x": 291.875,
-            "y": 320,
+            "x": 293.125,
+            "y": 317.5,
             "width": 180,
             "height": 172.5
           },
@@ -727,14 +615,14 @@ const defaultLocations = {
             "type": "office",
             "x": 536.25,
             "y": 320,
-            "width": 144.375,
-            "height": 171.25
+            "width": 145.625,
+            "height": 176.25
           },
           {
             "id": "room-1749755130375",
             "name": "Closet",
             "type": "kitchen",
-            "x": 473.75,
+            "x": 475,
             "y": 318.75,
             "width": 60.625,
             "height": 172.5
@@ -813,59 +701,26 @@ const defaultLocations = {
             "y": 88.37527465820312,
             "rotation": 0,
             "furnitureId": "desk-kjq",
-            "employee": {
-              "name": "Julia Furlong",
-              "title": "Marketing Manager",
-              "email": "jfurlong@beardsley.com",
-              "phone": "jfurlong@beardsley.com",
-              "notes": "",
-              "employeeNumber": "",
-              "photo": "/photos/Julia-Furlong_Resume.jpg",
-              "id": "emp-1749756253406",
-              "profileUrl": "#",
-              "avatar": "/photos/Julia-Furlong_Resume.jpg"
-            }
+            "employee": null
           },
           {
             "id": "seat-1749755502086",
-            "x": 417.477294921875,
-            "y": 430.099365234375,
+            "x": 272.2663573156726,
+            "y": 244.962356170413,
             "rotation": 0,
-            "employee": {
-              "name": "Michelle Thompson",
-              "title": "Accountant",
-              "email": "mthompson@beardsley.com",
-              "phone": "3152537301 2241",
-              "notes": "",
-              "employeeNumber": "00346",
-              "photo": "/photos/Michelle-Thompson_Resume.jpg",
-              "id": "emp-1749756302748",
-              "profileUrl": "https://beardsley.deltekfirst.com/Beardsley/app/#!Employees/view/0/0/00346/hybrid",
-              "avatar": "/photos/Michelle-Thompson_Resume.jpg"
-            }
+            "employee": null
           },
           {
             "id": "seat-1749755522174",
-            "x": 628.7568969726562,
-            "y": 370.9064025878906,
+            "x": 436.5950012207031,
+            "y": 433.27001953125,
             "rotation": 0,
-            "employee": {
-              "name": "Tom Wight",
-              "title": "Marketing Manager",
-              "email": "twight@beardsley.com",
-              "phone": "315-253-7301 2222",
-              "notes": "",
-              "employeeNumber": "00186",
-              "photo": "/photos/Tom-Wight_Resume.jpg",
-              "id": "emp-1749756437387",
-              "profileUrl": "https://beardsley.deltekfirst.com/Beardsley/app/#!Employees/view/0/0/00186/hybrid",
-              "avatar": "/photos/Tom-Wight_Resume.jpg"
-            }
+            "employee": null
           },
           {
             "id": "seat-1749755557086",
-            "x": 247.8843994140625,
-            "y": 259.5633544921875,
+            "x": 598.3450012207031,
+            "y": 429.77001953125,
             "rotation": 0,
             "employee": null
           }
