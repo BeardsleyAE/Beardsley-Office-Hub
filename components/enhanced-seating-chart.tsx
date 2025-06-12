@@ -1003,7 +1003,7 @@ export function EnhancedSeatingChart({
       {/* Map container with pan and zoom */}
       <div
         ref={containerRef}
-        className="h-[700px] overflow-hidden rounded-xl border-2 border-office-maroon/20 bg-gradient-to-br from-gray-50 to-gray-100 shadow-lg"
+        className="h-[1000px] overflow-hidden rounded-xl border-2 border-office-maroon/20 bg-gradient-to-br from-gray-50 to-gray-100 shadow-lg"
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
@@ -1032,13 +1032,13 @@ export function EnhancedSeatingChart({
             <svg
               width="100%"
               height="100%"
-              viewBox="0 0 1000 600"
+              viewBox="0 0 1600 1000"
               className="h-full w-full"
               preserveAspectRatio="xMidYMid meet"
               style={{ filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))" }}
             >
               {/* Floor background */}
-              <rect width="1000" height="600" fill="#FAFAFA" stroke="#E5E7EB" strokeWidth="2" rx="8" />
+              <rect width="1600" height="1000" fill="#FAFAFA" stroke="#E5E7EB" strokeWidth="2" rx="8" />
 
               {/* Render rooms */}
               {floorData.rooms?.map((room: any) => {
